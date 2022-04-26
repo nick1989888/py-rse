@@ -18,8 +18,7 @@ def main(source_files):
     '''Main driver.'''
 
     captions = read_all_files(source_files, find_captions)
-    captions = [c for c in captions if not c.endswith('.')]
-    if captions:
+    if captions := [c for c in captions if not c.endswith('.')]:
         for c in captions:
             print(c)
 

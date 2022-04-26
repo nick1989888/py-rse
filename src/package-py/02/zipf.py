@@ -8,8 +8,7 @@ RELATIVE_ERROR = 0.05
 
 def make_zipf(length):
     assert length > 0, 'Zipf distribution must have at least one element'
-    result = [1/(1 + i) for i in range(length)]
-    return result
+    return [1/(1 + i) for i in range(length)]
 
 
 def is_zipf(hist, rel=RELATIVE_ERROR):
@@ -25,5 +24,5 @@ if __name__ == '__main__':
     else:
         values = [int(a) for a in sys.argv[1:]]
         result = is_zipf(values)
-        print('{}: {}'.format(result, values))
+        print(f'{result}: {values}')
     sys.exit(0)

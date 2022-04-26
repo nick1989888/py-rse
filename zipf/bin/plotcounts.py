@@ -12,9 +12,9 @@ from scipy.optimize import minimize_scalar
 
 def nlog_likelihood(beta, counts):
     """Log-likelihood function."""
-    likelihood = - np.sum(np.log((1/counts)**(beta - 1)
-                          - (1/(counts + 1))**(beta - 1)))
-    return likelihood
+    return -np.sum(
+        np.log((1 / counts) ** (beta - 1) - (1 / (counts + 1)) ** (beta - 1))
+    )
 
 
 def get_power_law_params(word_counts):
@@ -39,8 +39,7 @@ def get_power_law_params(word_counts):
                           args=word_counts,
                           method='brent')
     beta = mle.x
-    alpha = 1 / (beta - 1)
-    return alpha
+    return 1 / (beta - 1)
 
 
 def set_plot_params(param_file):

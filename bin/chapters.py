@@ -27,39 +27,42 @@ def main(args):
     includes = [read_include(f) for f in include_files]
     check('config and makefile', config, makefile)
     for (filename, values) in zip(include_files, includes):
-        check('config and {}'.format(filename), config, values)
+        check(f'config and {filename}', config, values)
 
 
 def read_makefile_names(reader, makefile_key):
     lines = [x for x in reader.readlines() if x.startswith(makefile_key)]
-    assert len(lines) == 1, 'No match for {}'.format(makefile_key)
+    assert len(lines) == 1, f'No match for {makefile_key}'
     return sanitize(lines[0].split(':')[1].strip().split())
 
 
 def read_config(config_file):
     with open(config_file, 'r') as reader:
         config = yaml.safe_load(reader)
-        assert CONFIG_KEY in config, '{} not found in {}'.format(CONFIG_KEY, config_file)
+        assert CONFIG_KEY in config, f'{CONFIG_KEY} not found in {config_file}'
         return sanitize(config[CONFIG_KEY])
 
 
 def read_include(filename):
     with open(filename, 'r') as reader:
         raw = [x.split('/') for x in INCLUDE_RE.findall(reader.read())]
-        assert len(set([x[0] for x in raw])) == 1, 'Inconsistent directory names in {}'.format(filename)
+        assert (
+            len({x[0] for x in raw}) == 1
+        ), f'Inconsistent directory names in {filename}'
+
         return sanitize([x[1] for x in raw])
 
 
 def sanitize(names):
-    return set([os.path.splitext(n)[0] for n in names])
+    return {os.path.splitext(n)[0] for n in names}
 
 
 def check(title, left, right):
     for (subtitle, items) in (('missing', left-right), ('extra', right-left)):
         if items:
-            print('{}: {}'.format(title, subtitle))
+            print(f'{title}: {subtitle}')
             for i in sorted(items):
-                print('  {}'.format(i))
+                print(f'  {i}')
 
 
 if __name__ == '__main__':

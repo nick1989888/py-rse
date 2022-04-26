@@ -19,7 +19,7 @@ def main(filenames):
             data = reader.read()
             for m in REF_RE.findall(data):
                 if (not m.startswith(' ')):
-                    print('{}: {}'.format(f, m))
+                    print(f'{f}: {m}')
 
 
 if __name__ == '__main__':

@@ -24,4 +24,4 @@ def collection_to_csv(collection, num=None):
     if num is None:
         num = len(collection)
     writer = csv.writer(sys.stdout)
-    writer.writerows(collection[0:num])
+    writer.writerows(collection[:num])

@@ -16,8 +16,7 @@ def count_words(reader):
     chunks = text.split()
     npunc = [word.strip(string.punctuation) for word in chunks]
     word_list = [word.lower() for word in npunc if word]
-    word_counts = Counter(word_list)
-    return word_counts
+    return Counter(word_list)
 
 
 def main(args):

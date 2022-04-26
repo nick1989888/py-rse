@@ -10,5 +10,5 @@ if __name__ == '__main__':
     else:
         values = [int(a) for a in sys.argv[1:]]
         result = zipfpy.check.is_zipf(values)
-        print('{}: {}'.format(result, values))
+        print(f'{result}: {values}')
     sys.exit(0)

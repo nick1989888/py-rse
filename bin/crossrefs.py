@@ -16,10 +16,10 @@ FIGURE = re.compile(r'```\{r\s+([^,]+),.+fig\.cap=".+"\}')
 
 def main(title, filenames):
     text = [open(f, 'r').read() for f in filenames]
-    headings = set([x for sublist in text for x in HEADING.findall(sublist)])
-    figures = set(['fig:{}'.format(x) for sublist in text for x in FIGURE.findall(sublist)])
-    refs = set([r for sublist in text for r in REF.findall(sublist)])
-    report('{}: used but not defined'.format(title), refs - (headings | figures))
+    headings = {x for sublist in text for x in HEADING.findall(sublist)}
+    figures = {f'fig:{x}' for sublist in text for x in FIGURE.findall(sublist)}
+    refs = {r for sublist in text for r in REF.findall(sublist)}
+    report(f'{title}: used but not defined', refs - (headings | figures))
 
 
 if __name__ == '__main__':

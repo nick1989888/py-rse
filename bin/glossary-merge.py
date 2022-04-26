@@ -81,7 +81,7 @@ def keepOnly(glossary, wordList):
 
 def listSort(glossary):
     '''Convert glossary to list sorted by slug.'''
-    glossary = [x for x in glossary.values()]
+    glossary = list(glossary.values())
     glossary.sort(key=lambda x: x['slug'])
     return glossary
 
